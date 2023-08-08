@@ -1,4 +1,4 @@
-export const url = "https://rcdriftautobackend.onrender.com/api/";
+export const url = "https://rcdriftautobackend.onrender.com/api";
 
 export const setHeaders = () => {
   const headers = {
