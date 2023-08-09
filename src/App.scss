@@ -18,6 +18,7 @@ textarea {
 	font-family: "Roboto", sans-serif;
 }
 
+
 .a-button {
 	line-height: 4;
 }
@@ -587,6 +588,28 @@ button, .a-button {
 		background-color: var(--action);
 	}
 }
+
+.main-home {
+	width: 100%;
+}
+	
+.allesbekijken {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 180px;
+	height: 55px;
+	text-decoration: none;
+	margin: 30px auto 0 auto;
+	font-size: 22px;
+	background: black;
+	color: white !important;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 @media screen and (max-width: 1000px) {
 	.banner {
 		margin-top: 120px;
@@ -602,6 +625,7 @@ button, .a-button {
 
 	.main-home {
 		margin-top: 150px;
+		width: 100%;
 	}
 
 	.popup {

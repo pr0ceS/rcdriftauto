@@ -216,8 +216,10 @@ const Home = () => {
 											In winkelwagen
 										</button>
 									</div>
+
 								))}
 						</div>
+						<Link className="allesbekijken" to="/autos">Alles Bekijken</Link>
 					</section>
 				) : status === "pending" ? (
 					<p></p>
