@@ -51,9 +51,6 @@ const ProductsPage = () => {
 							{products &&
 								products?.toReversed().map((product) => (
 									<div key={product._id} className="product">
-										{	product.sale > 0 &&
-											<span className='product-sale'>{calculateSalePercentage(product.sale, product.price)}% Korting</span>
-										}	
 										<Link to={"/auto/" + product.url}>
 											<img src={product.image[0]} alt={product.name} />
 										</Link>

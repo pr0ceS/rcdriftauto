@@ -39,7 +39,7 @@ export const ordersEdit = createAsyncThunk(
         setHeaders()
       );
 
-			toast.success("Erfolgreich geändert")
+			toast.success("Succesvol gewijzigd")
       return response.data;
     } catch (error) {
 			toast.error(error);

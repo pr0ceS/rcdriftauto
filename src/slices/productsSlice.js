@@ -1,4 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from "redux-persist/lib/storage";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { url, setHeaders } from "./api";

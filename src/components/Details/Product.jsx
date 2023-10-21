@@ -27,6 +27,9 @@ const Product = () => {
   const [loading, setLoading] = useState(false);
 	const [selectedImage, setSelectedImage] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
+	const [productPrice, setProductPrice] = useState(null);
+	const [productSale, setProductSale] = useState(null);
+	const [activeSelected, setActiveSelected] = useState('option1');
 	const [date1, setDate1] = useState(null);
 	const [date2, setDate2] = useState(null);
 	const [date3, setDate3] = useState(null);
@@ -39,12 +42,31 @@ const Product = () => {
   }, [cart, dispatch]);
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+		if(activeSelected === 'option1') {
+			dispatch(addToCart(product));
+		} else if(activeSelected === 'option2') {
+			dispatch(addToCart(product));
+			dispatch(addToCart(product));
+		} else if(activeSelected === 'option3') {
+			dispatch(addToCart(product));
+			dispatch(addToCart(product));
+			dispatch(addToCart(product));
+		}
 		toast.success("Toegevoegd aan Winkelwagen");
+		navigate('/winkelwagen')
   };
 
   const handleCheckout = (product) => {
-    dispatch(addToCart(product));
+    if(activeSelected === 'option1') {
+			dispatch(addToCart(product));
+		} else if(activeSelected === 'option2') {
+			dispatch(addToCart(product));
+			dispatch(addToCart(product));
+		} else if(activeSelected === 'option3') {
+			dispatch(addToCart(product));
+			dispatch(addToCart(product));
+			dispatch(addToCart(product));
+		}
 
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
@@ -68,6 +90,8 @@ const Product = () => {
         setLoading(true);
         const res = await axios.get(`${url}/products/find/${params.id}`);
 
+				setProductPrice(res.data.price);
+				setProductSale(res.data.sale);
         setProduct(await res.data);
         setLoading(false);
       } catch (err) {
@@ -152,7 +176,7 @@ const Product = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 350) {
+      if (window.scrollY > 700) {
         setScrollClassName('bb-show');
       } else {
         setScrollClassName('');
@@ -166,6 +190,28 @@ const Product = () => {
     };
   }, []);
 
+	const price1 = product.price;
+	const price2 = price1 * 2 * 0.9;
+	const price3 = price1 * 3 * 0.85;
+	const sale1 = product.sale;
+	const sale2 = sale1 * 2;
+	const sale3 = sale1 * 3;
+
+	const handleButtonClick = (option) => {
+		setActiveSelected(option)
+		if(option === "option1") {
+			setProductPrice(price1);
+			setProductSale(sale1)
+		} else if(option === "option2") {
+			setProductPrice(price2);
+			setProductSale(sale2)
+		} else if(option === "option3") {
+			setProductPrice(price3);
+			setProductSale(sale3)
+		}
+	}
+	
+	
   return (
     <div className="styled-product">
 			<div className="breadcrumbs-container singleproduct">
@@ -183,9 +229,6 @@ const Product = () => {
             <>
 							{product?.image &&
 								<div className="img-container">
-									{	product.sale > 0 &&
-										<span className='product-sale'>{calculateSalePercentage(product.sale, product.price)}% Korting</span>
-									}	
 									<img className="mainImage" src={product?.image[selectedImage] ? product?.image[selectedImage] : "loading" } alt="product" />
 									<div className="images">
 										{product?.image.map((img, index) => {
@@ -210,17 +253,58 @@ const Product = () => {
 										} 
 									</div>
                 
-								<p className="stock">{product?.stock} stuks op voorraad</p>
 								{/* <OldPrice>{(product?.price + product?.sale).toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</OldPrice> */}
 								<div className="product-prices">
-									{product?.sale &&  
-										<p className="product-price sale-price">€{product?.sale?.toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
-									}
-									<p className="product-price">€{product?.price?.toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
+									{product?.sale? (
+										productSale !== null && (
+											<div className="product-sales">
+												<p className="product-price sale-price">€{productSale?.toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
+												<p className={`sale-display ${activeSelected === "option2" ? "sale-selected" : activeSelected === "option3" ? "sale-selected" : ""}`}>{activeSelected === "option2" ? "10% Korting" : activeSelected === "option3" ? "15% Korting" : ""}</p>
+											</div>
+										)  
+									) : (
+										<p>Laden...</p>
+									)}
+									
+									{productPrice !== null ? (
+										<p className="product-price">€{productPrice?.toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
+									) : (
+										<p>Laden...</p>
+									)}
+									
 								</div>
                 {/* <p className="product-price">€{((product?.price * 0.21) + product?.price).toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p> */}
 
 								<p className="mwst">Incl. {product?.tax ? product?.tax + "% " : ""}BTW</p>
+								<div className="more-options">
+									<div className={`option ${activeSelected === "option1" ? "option-selected" : ""}`} onClick={() => handleButtonClick('option1')}>
+										<p>
+											<div className="centercircle">
+												<div className="innercircle"></div>
+											</div>
+											1 Stuk
+										</p>
+										<span>0% Korting</span>
+									</div>
+									<div className={`option ${activeSelected === "option2" ? "option-selected" : ""}`} onClick={() => handleButtonClick('option2')}>
+										<p>
+											<div className="centercircle">
+												<div className="innercircle"></div>
+											</div>
+											2 Stuks
+										</p>
+										<span><b>10%</b> Korting</span>
+									</div>
+									<div className={`option ${activeSelected === "option3" ? "option-selected" : ""}`} onClick={() => handleButtonClick('option3')}>
+										<p>
+											<div className="centercircle">
+												<div className="innercircle"></div>
+											</div>
+											3+ Stuks
+										</p>
+										<span><b>15%</b> Korting</span>
+									</div>
+								</div>
 								{product?.soldout ? 
 									<button className="product-soldout">
 										Uitverkocht
@@ -246,14 +330,11 @@ const Product = () => {
 										{!product?.soldout &&
 											<div>
 												<p className="date">{product?.deliveryTime < 4 ? `${moment(date1).locale('nl').format('dd. D')} - ${moment(date2).locale('nl').format('dd. D MMMM')}` : `${moment(date3).locale('nl').format('dd. D')} - ${moment(date4).locale('nl').format('dd. D MMMM')}`}</p>
-												<p className="versand">Verzending binnen Nederland</p>
+												<p className="versand">Gratis verzendkosten</p>
 											</div>
 										}
 									</div>
 								}
-								<div className="prod-info">
-									<p><b>Kleur:</b> {product?.color ? product?.color : ""}</p>
-								</div>
                 <div className="payments">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="70" height="48" role="img" aria-labelledby="pi-ideal"><script xmlns=""></script><title id="pi-ideal">iDEAL</title><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3Z"/><path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32Z" fill="#fff"/><path d="M14 6.912V19h5.648C24.776 19 27 16.302 27 12.486 27 8.834 24.776 6 19.648 6h-4.67c-.543 0-.978.414-.978.912Z" fill="#C06"/><path d="M19.312 21h-8.884C9.64 21 9 20.373 9 19.6V5.4c0-.773.64-1.4 1.428-1.4h8.884C27.742 4 29 9.317 29 12.482 29 17.974 25.555 21 19.313 21h-.001ZM10.428 4.467a.944.944 0 0 0-.878.573.936.936 0 0 0-.074.36v14.2a.936.936 0 0 0 .59.866c.115.046.238.07.362.068h8.884c5.938 0 9.212-2.86 9.212-8.052 0-6.972-5.774-8.015-9.212-8.015h-8.884Z"/><path d="M16.252 11.008c.188 0 .361.03.528.088.167.06.304.155.427.273.116.125.21.28.282.457.065.184.101.398.101.649 0 .22-.028.42-.08.604a1.417 1.417 0 0 1-.245.479 1.197 1.197 0 0 1-.413.317 1.437 1.437 0 0 1-.586.118H15V11h1.252v.008Zm-.044 2.44c.095 0 .181-.016.276-.045a.539.539 0 0 0 .23-.155.863.863 0 0 0 .168-.28c.043-.118.065-.25.065-.42 0-.147-.015-.287-.044-.405a.814.814 0 0 0-.145-.31.656.656 0 0 0-.26-.199 1.047 1.047 0 0 0-.398-.066h-.464v1.887h.572v-.008Zm3.995-2.44v.553h-1.548v.64h1.426v.51h-1.426v.73h1.585v.552h-2.229V11h2.194v.008h-.002Zm2.215 0 1.1 2.992h-.673l-.224-.663h-1.1l-.232.663h-.652l1.108-2.992h.673Zm.037 1.835-.37-1.098h-.007l-.384 1.098h.76Zm2.112-1.835v2.44H26V14h-2.076v-2.992h.643Z" fill="#fff"/><path d="M11.5 13.652c.829 0 1.5-.593 1.5-1.326 0-.732-.671-1.326-1.5-1.326s-1.5.594-1.5 1.326c0 .732.671 1.326 1.5 1.326ZM12.63 19c-1.258 0-2.269-.9-2.269-2.007v-1.568a.969.969 0 0 1 .337-.715c.214-.189.502-.294.802-.291a1.24 1.24 0 0 1 .433.073c.137.05.262.124.368.218.106.093.19.205.248.327a.93.93 0 0 1 .09.388V19h-.008Z"/></svg>
 									<svg xmlns="http://www.w3.org/2000/svg" role="img" width="68" height="45" viewBox="0 0 38 24" aria-labelledby="pi-klarna"><title id="pi-klarna">Klarna</title><g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"><path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#FFB3C7"/><path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFB3C7"/><path d="M34.117 13.184c-.487 0-.882.4-.882.892 0 .493.395.893.882.893.488 0 .883-.4.883-.893a.888.888 0 00-.883-.892zm-2.903-.69c0-.676-.57-1.223-1.274-1.223-.704 0-1.274.547-1.274 1.222 0 .675.57 1.223 1.274 1.223.704 0 1.274-.548 1.274-1.223zm.005-2.376h1.406v4.75h-1.406v-.303a2.446 2.446 0 01-1.394.435c-1.369 0-2.478-1.122-2.478-2.507 0-1.384 1.11-2.506 2.478-2.506.517 0 .996.16 1.394.435v-.304zm-11.253.619v-.619h-1.44v4.75h1.443v-2.217c0-.749.802-1.15 1.359-1.15h.016v-1.382c-.57 0-1.096.247-1.378.618zm-3.586 1.756c0-.675-.57-1.222-1.274-1.222-.703 0-1.274.547-1.274 1.222 0 .675.57 1.223 1.274 1.223.704 0 1.274-.548 1.274-1.223zm.005-2.375h1.406v4.75h-1.406v-.303A2.446 2.446 0 0114.99 15c-1.368 0-2.478-1.122-2.478-2.507 0-1.384 1.11-2.506 2.478-2.506.517 0 .997.16 1.394.435v-.304zm8.463-.128c-.561 0-1.093.177-1.448.663v-.535H22v4.75h1.417v-2.496c0-.722.479-1.076 1.055-1.076.618 0 .973.374.973 1.066v2.507h1.405v-3.021c0-1.106-.87-1.858-2.002-1.858zM10.465 14.87h1.472V8h-1.472v6.868zM4 14.87h1.558V8H4v6.87zM9.45 8a5.497 5.497 0 01-1.593 3.9l2.154 2.97H8.086l-2.341-3.228.604-.458A3.96 3.96 0 007.926 8H9.45z" fill="#0A0B09" fillRule="nonzero"/></g></svg>
@@ -263,6 +344,16 @@ const Product = () => {
 									<svg width="70" height="48" aria-labelledby="pi-visa" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg"><title id="pi-visa">Visa</title> <g clipPath="url(#clip0_12_324)"> <path opacity="0.07" d="M55.2632 1.05273H4.73684C2.05263 1.05273 0 3.10537 0 5.78958V34.2106C0 36.8948 2.21053 38.9475 4.73684 38.9475H55.2632C57.9474 38.9475 60 36.8948 60 34.2106V5.78958C60 3.10537 57.7895 1.05273 55.2632 1.05273Z" fill="black"/> <path d="M55.2631 2.63159C56.9999 2.63159 58.421 4.05264 58.421 5.78949V34.2105C58.421 35.9474 56.9999 37.3684 55.2631 37.3684H4.73675C2.99991 37.3684 1.57886 35.9474 1.57886 34.2105V5.78949C1.57886 4.05264 2.99991 2.63159 4.73675 2.63159H55.2631Z" fill="white"/> <g clipPath="url(#clip1_12_324)"> <path d="M25.9334 26.7838H22.207L24.5377 12.2634H28.2639L25.9334 26.7838Z" fill="#00579F"/> <path d="M39.4416 12.6182C38.7066 12.3244 37.5409 12 36.0994 12C32.4195 12 29.8282 13.9771 29.8123 16.8039C29.7818 18.8894 31.6676 20.0478 33.0781 20.7432C34.5198 21.4537 35.0099 21.9175 35.0099 22.5509C34.9952 23.5237 33.8449 23.9721 32.7721 23.9721C31.2843 23.9721 30.4872 23.7409 29.2758 23.1997L28.7851 22.9677L28.2637 26.2272C29.1376 26.6284 30.7478 26.9844 32.4195 27C36.3295 27 38.8749 25.0535 38.9051 22.0411C38.92 20.3882 37.9242 19.1216 35.7772 18.0866C34.4739 17.4223 33.6758 16.9743 33.6758 16.2945C33.6911 15.6765 34.3509 15.0435 35.8221 15.0435C37.0335 15.0125 37.9235 15.3059 38.5978 15.5995L38.9348 15.7537L39.4416 12.6182Z" fill="#00579F"/> <path d="M44.3941 21.6398C44.701 20.8056 45.8819 17.5771 45.8819 17.5771C45.8664 17.6081 46.1881 16.7275 46.3721 16.1869L46.6325 17.4381C46.6325 17.4381 47.3382 20.9138 47.4914 21.6398C46.9091 21.6398 45.1302 21.6398 44.3941 21.6398ZM48.9938 12.2634H46.1115C45.2227 12.2634 44.5474 12.5258 44.1639 13.4682L38.6289 26.7836H42.5388C42.5388 26.7836 43.1825 24.9915 43.3209 24.6055C43.7498 24.6055 47.5534 24.6055 48.1052 24.6055C48.2122 25.1153 48.5498 26.7836 48.5498 26.7836H52L48.9938 12.2634Z" fill="#00579F"/> <path d="M19.0945 12.2634L15.4452 22.1649L15.0464 20.1568C14.3717 17.8397 12.2558 15.3221 9.89453 14.0704L13.2372 26.7684H17.1776L23.0348 12.2634H19.0945Z" fill="#00579F"/> <path d="M12.0566 12.2634H6.06133L6 12.5568C10.6767 13.7618 13.774 16.6663 15.0465 20.1574L13.7432 13.484C13.5287 12.5566 12.8693 12.294 12.0566 12.2634Z" fill="#FAA61A"/> </g> </g> <defs> <clipPath id="clip0_12_324"> <rect width="60" height="40" fill="white"/> </clipPath> <clipPath id="clip1_12_324"> <rect width="46" height="15" fill="white" transform="translate(6 12)"/> </clipPath> </defs> </svg>
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="70" height="48" role="img" aria-labelledby="pi-maestro"><title id="pi-maestro">Maestro</title><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"/><path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"/><circle fill="#EB001B" cx="15" cy="12" r="7"/><circle fill="#00A2E5" cx="23" cy="12" r="7"/><path fill="#7375CF" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"/></svg>
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="70" height="48" aria-labelledby="pi-master"><title id="pi-master">Mastercard</title><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path><path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path><circle fill="#EB001B" cx="15" cy="12" r="7"></circle><circle fill="#F79E1B" cx="23" cy="12" r="7"></circle><path fill="#FF5F00" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"></path></svg>
+								</div>
+								<div className="veelgestelde-vragen">
+									<div>
+										<h1>🚀 Hoe snel gaat de RCDriftAuto™?</h1>
+										<p>Met de driftbanden kunnen ze een snelheid tot 15 km/h bereiken. Het monteren van rubberen banden stelt de RCDriftAuto's in staat om een snelheid van 20 km/h te bereiken.</p>
+									</div>
+									<div>
+										<h1>🔋 Hoe lang gaat de batterij mee?</h1>
+										<p>De batterij heeft een gemiddelde speeltijd van 30-45 minuten en het duurt 1 uur om hem op te laden.</p>
+									</div>
 								</div>
                 {/* <div className="extra-info">
 									<img src={Garantie} width="215" height="215" alt="14 Tage Garantie" />

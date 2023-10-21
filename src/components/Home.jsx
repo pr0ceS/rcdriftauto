@@ -159,6 +159,9 @@ const Home = () => {
 				<p className="closetext" onClick={() => closePopup()}>Nein danke, ich zahle lieber den vollen Preis</p>
 			</div> */}
 			<div className="banner">
+			<video autoPlay playsInline muted loop>
+				<source src="https://res.cloudinary.com/dwkzjfa1m/video/upload/v1697713605/RCDriftAuto_Website_Video_2_bbixpu.mp4" type="video/mp4" />
+			</video>
 				{/* <div className="banner-wrapper">
 					<Swiper autoplay={{delay: 5000, disableOnInteraction: false}} navigation={true} modules={[Autoplay, Navigation]} className="mySwiper">
 						<SwiperSlide className="carousel carousel2"><Link className="a-button" to="/produkt/ergotron-lx-arm-monitor-durchtischbefestigung-(45-241-026)">Jetzt entdecken</Link></SwiperSlide>
@@ -180,7 +183,9 @@ const Home = () => {
 					<p>Koop vandaag nog een RCDriftAuto™. Onze auto's zijn van uiterste kwaliteit en garanderen een langdurige speelplezier.<br/> <br/> Wij bieden een 14 dagen niet goed, geld terug garantie aan. Ook bieden wij gratis verzendkosten aan voor u. <br/> <br/>Wij leveren bij elk aankoop 2 sets banden. Eentje zijn geschikt voor Driften en de andere zijn voor Racen.<br/> <br/> Onze Klantenservice is altijd snel, gratis en behulpzaam. Bij defecten zorgen wij voor een creditering of een gloednieuwe.</p>
 					<Link className="a-button" to="/autos">Auto's Bekijken</Link>
 				</div>
-				<img src={gif2} alt="RCDriftAuto™ Gif" />
+				<video autoPlay playsInline muted loop>
+					<source src="https://res.cloudinary.com/dwkzjfa1m/video/upload/v1697713604/RCDriftAuto_Website_Video_dyvx5t.mp4" type="video/mp4" />
+			</video>
 			</section>
 			<div className="home-container">
 				{status === "success" ? (
@@ -190,9 +195,6 @@ const Home = () => {
 							{popularProducts &&
 								popularProducts?.map((product) => (
 									<div key={product._id} className="product">
-										{	product.sale > 0 &&
-											<span className='product-sale'>{calculateSalePercentage(product.sale, product.price)}% Korting</span>
-										}
 										<Link to={"/auto/" + product.url}>
 											<img src={product.image[0]} alt={product.name} />
 										</Link>
@@ -296,21 +298,18 @@ const Home = () => {
 						</div>
 					</div>
 			</section>
+			<section className="h1-section">
+			<h1 className="h1-section-titel">Veelgestelde vragen:</h1>
+				<div>
+					<h1>Hoe snel gaan de RC Drift Auto's?</h1>
+					<p>Met de driftbanden kunnen ze een snelheid tot 15 km/h bereiken. Het monteren van rubberen banden stelt de RCDriftAuto's in staat om een snelheid van 20 km/h te bereiken.</p>
+				</div>
+				<div>
+					<h1>Hoe lang gaat de batterij mee?</h1>
+					<p>De batterij heeft een gemiddelde speeltijd van 30-45 minuten en het duurt 1 uur om hem op te laden.</p>
+				</div>
+			</section>
 			<MailList />
-			{/* <section className="h1-section">
-				<div>
-					<h1>Warum sollten Sie bei ErgotronKaufen.de kaufen?</h1>
-					<p>A Tesla Coil Speaker is an electromagnetically powered speaker that uses a high-voltage electrical current to generate sound. It utilizes a Tesla Coil, a special type of induction coil, to generate the voltage necessary to make sound. The frequency of the electricity produced by the Tesla Coil Speaker can reach up to several hundred kilohertz (kHz).</p>
-				</div>
-				<div>
-					<h1>Are Tesla coil speakers safe to use?</h1>
-					<p>Yes, Tesla Coil Speakers are safe to use. They generate low-level electrical current and do not produce any hazardous radiation. However, it is important to take care when handling the speaker and its components, as high-voltage electricity is involved.</p>
-				</div>
-				<div>
-					<h1>Does it hurt when you touch the Tesla Coil electricity?</h1>
-					<p>No, it does not hurt when you touch the electricity produced by a Tesla Coil Speaker.</p>
-				</div>
-			</section> */}
 		</>
   );
 };

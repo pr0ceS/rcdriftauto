@@ -83,7 +83,7 @@ export default function OrderList() {
             <DeliveryBtn onClick={() => handleDeliver(params.row.id)}>
               Delivered
             </DeliveryBtn>
-            <View onClick={() => navigate(`/bestellung/${params.row.id}`)}>
+            <View onClick={() => navigate(`/bestelling/${params.row.id}`)}>
               View
             </View>
           </Actions>

@@ -63,10 +63,8 @@ const cartSlice = createSlice({
         (cartTotal, cartItem) => {
           const { price, cartQuantity } = cartItem;
           const itemTotal = price * cartQuantity;
-
           cartTotal.total += itemTotal;
           cartTotal.quantity += cartQuantity;
-
           return cartTotal;
         },
         {
@@ -76,6 +74,17 @@ const cartSlice = createSlice({
       );
       total = parseFloat(total.toFixed(2));
       state.cartTotalQuantity = quantity;
+      state.cartTotalQuantity = quantity;
+
+      // Check the number of products in the cart and apply discounts accordingly
+      if (quantity >= 2 && quantity < 3) {
+        // 10% discount for 2 products
+        total = total * 0.9;
+      } else if (quantity >= 3) {
+        // 15% discount for 3 or more products
+        total = total * 0.85;
+      }
+      
       state.cartTotalAmount = total;
     },
     clearCart(state, action) {

@@ -13,8 +13,7 @@ import {
 } from "../slices/cartSlice";
 import { BiHome } from "react-icons/bi";
 import DHLTruck from "./svg/vrachtwagen.svg"
-import Garantie from "./assets/14tagegarantie.png"
-import Paypal from "./assets/paypalverified.png"
+import Encrypted from "./assets/encrypted.webp"
 
 import { Link } from "react-router-dom";
 import PayButton from "./PayButton";
@@ -25,6 +24,10 @@ import reviewsData from "./json/reviews.json";
 
 const Cart = () => {
   const indicesToExtract = [3, 4, 6];
+  const [toggleSwitch, setToggleSwitch] = useState(true);
+  const handleSwitch = () => {
+    setToggleSwitch(!toggleSwitch);
+  }
   const selectedReviews = indicesToExtract.map(index => reviewsData.Reviews[index]);
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
@@ -76,7 +79,7 @@ const Cart = () => {
         </div>
       ) : (
         <>
-        <div className="breadcrumbs-container">
+        <div className="breadcrumbs-container cartbreadcrumbs">
           <Breadcrumbs className="breadcrumbs">
             <Link to="/"><BiHome /></Link>
             <Link className="breadcrumbs-a" to="/winkelwagen">Winkelwagen</Link>
@@ -157,11 +160,25 @@ const Cart = () => {
                 <span className="amount">€{(cart.cartTotalAmount * 0.79).toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</span>
 							</div> */}
               <div className="subtotal">
-                <span>Totaalbedrag</span>
-                <span className="amount">€{cart.cartTotalAmount.toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</span>
+                <p>Totaalbedrag</p>
+                <span className={`sale-display ${cart.cartTotalQuantity === 2 ? "sale-selected" : cart.cartTotalQuantity >= 3 ? "sale-selected" : ""}`}>{cart.cartTotalQuantity === 2 ? "10% Korting" : cart.cartTotalQuantity >= 3 ? "15% Korting" : ""}</span>
+                <p className="amount">€{(toggleSwitch ? (cart.cartTotalAmount + 2.99) : cart.cartTotalAmount).toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
               </div>
               <p>U kunt betalen zonder een account aan te maken</p>
               <PayButton cartItems={cart.cartItems} />
+              <div className="shipping-protection">
+                <img src={Encrypted} width="60" alt="Encryptie Logo" />
+                <div className="shipping-text">
+                  <div className="shipping-text-top">
+                    <h2>Bestelling Verzekeren</h2>
+                    <h2>€2,99</h2>
+                  </div>
+                  <p>Bescherm je bestelling tegen beschadiging, verlies of diefstal tijdens verzending.</p>
+                </div>
+                <div className="switch shopswitch" onClick={() => handleSwitch()}>
+                  <span className={`slider shopslider ${toggleSwitch ? "showSwitch" : ""}`}></span>
+                </div>
+              </div>
 							{!auth._id &&
 								<Link className="a-button cart-register" to="/inloggen">Registreren of Inloggen</Link>
 							}
