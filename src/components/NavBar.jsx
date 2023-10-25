@@ -226,7 +226,7 @@ const NavBar = () => {
 
 		{/* PC NAVBAR */}
 		<nav className="info-bar">
-			<p>🔥 €5 Korting op alles! 🔥</p><b className="info-divider"> | </b><p>📦 Gratis verzendkosten!</p> 
+			<p>🔥€5 Korting op alles!</p><b className="info-divider"> | </b><p>📦 Gratis verzendkosten!</p> 
 		</nav>
     <nav className="nav-bar">
 			<div className="nav-bar-bovenkant">
