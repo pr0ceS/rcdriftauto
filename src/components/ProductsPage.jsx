@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const ProductsPage = () => {
 	const { items: data, status } = useSelector((state) => state.products);
-	const [products, setProducts] = useState(data);
+	const [products, setProducts] = useState([]);
   const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -26,6 +26,20 @@ const ProductsPage = () => {
     dispatch(addToCart(product));
 		toast.success("Toegevoegd aan Winkelwagen")
 	};
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const res = await axios.get(`${url}/products`);
+
+				setProducts(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+
+		fetchProducts();
+	}, [])
 
 	// Calculate sale percentage
 	const calculateSalePercentage = (oldPrice, newPrice) => {

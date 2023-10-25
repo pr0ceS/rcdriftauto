@@ -172,7 +172,7 @@ const Home = () => {
 				<div className="banner-wrapper">
 					<h1 className="banner-title">RCDriftAuto™</h1>
 					<p className="banner-description">
-						Klaar om te driften?
+						🔥 €5 Korting op alles! 🚘 Koop 3 krijg extra 10% Korting! 🔥
 					</p>
 					<Link to="/autos" className="a-button banner-button">Auto's Bekijken</Link>
 				</div>
@@ -231,8 +231,8 @@ const Home = () => {
 			</div>
 			<section className="stats-container">
 				<div>
-					<img src={Satisfied} alt="200+ Tevreden Klanten" />
-					<h1>200+ Tevreden Klanten</h1>
+					<img src={Satisfied} alt="100+ Tevreden Klanten" />
+					<h1>100+ Tevreden Klanten</h1>
 				</div>
 				<div>
 					<img src={Returns} alt="14 Dagen Retour Garantie" />

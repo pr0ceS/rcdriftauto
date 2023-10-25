@@ -71,7 +71,7 @@ export default function ProductsList() {
           <Actions>
             <Delete onClick={() => handleDelete(params.row.id)}>Verwijder</Delete>
             <EditProduct prodId={params.row.id} />
-            <View onClick={() => navigate(`/produkt/${params.row.productUrl}`)}>
+            <View onClick={() => navigate(`/auto/${params.row.productUrl}`)}>
               Bekijk
             </View>
           </Actions>

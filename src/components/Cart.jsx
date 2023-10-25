@@ -161,11 +161,11 @@ const Cart = () => {
 							</div> */}
               <div className="subtotal">
                 <p>Totaalbedrag</p>
-                <span className={`sale-display ${cart.cartTotalQuantity === 2 ? "sale-selected" : cart.cartTotalQuantity >= 3 ? "sale-selected" : ""}`}>{cart.cartTotalQuantity === 2 ? "10% Korting" : cart.cartTotalQuantity >= 3 ? "15% Korting" : ""}</span>
+                <span className={`sale-display ${cart.cartTotalQuantity === 2 ? "sale-selected" : cart.cartTotalQuantity >= 3 ? "sale-selected" : ""}`}>{cart.cartTotalQuantity === 2 ? "5% Korting" : cart.cartTotalQuantity >= 3 ? "10% Korting" : ""}</span>
                 <p className="amount">€{(toggleSwitch ? (cart.cartTotalAmount + 2.99) : cart.cartTotalAmount).toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
               </div>
               <p>U kunt betalen zonder een account aan te maken</p>
-              <PayButton cartItems={cart.cartItems} />
+              <PayButton cartItems={cart.cartItems} insurance={toggleSwitch} />
               <div className="shipping-protection">
                 <img src={Encrypted} width="60" alt="Encryptie Logo" />
                 <div className="shipping-text">

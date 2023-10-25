@@ -86,7 +86,7 @@ export default function ReviewsList() {
         return (
           <Actions>
             <Delete onClick={() => handleDelete(params.row.id)}>Verwijder</Delete>
-            <View onClick={() => navigate(`/produkt/${params.row.url}`)}>Bekijk</View>
+            <View onClick={() => navigate(`/auto/${params.row.name}`)}>Bekijk</View>
           </Actions>
         );
       },

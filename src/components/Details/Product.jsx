@@ -191,8 +191,8 @@ const Product = () => {
   }, []);
 
 	const price1 = product.price;
-	const price2 = price1 * 2 * 0.9;
-	const price3 = price1 * 3 * 0.85;
+	const price2 = price1 * 2 * 0.95;
+	const price3 = price1 * 3 * 0.9;
 	const sale1 = product.sale;
 	const sale2 = sale1 * 2;
 	const sale3 = sale1 * 3;
@@ -259,7 +259,7 @@ const Product = () => {
 										productSale !== null && (
 											<div className="product-sales">
 												<p className="product-price sale-price">€{productSale?.toLocaleString('nl-nl', { maximumFractionDigits: 2, minimumFractionDigits: 2})}</p>
-												<p className={`sale-display ${activeSelected === "option2" ? "sale-selected" : activeSelected === "option3" ? "sale-selected" : ""}`}>{activeSelected === "option2" ? "10% Korting" : activeSelected === "option3" ? "15% Korting" : ""}</p>
+												<p className={`sale-display ${activeSelected === "option2" ? "sale-selected" : activeSelected === "option3" ? "sale-selected" : ""}`}>{activeSelected === "option2" ? "5% Korting" : activeSelected === "option3" ? "10% Korting" : ""}</p>
 											</div>
 										)  
 									) : (
@@ -293,7 +293,7 @@ const Product = () => {
 											</div>
 											2 Stuks
 										</p>
-										<span><b>10%</b> Korting</span>
+										<span><b>5%</b> Korting</span>
 									</div>
 									<div className={`option ${activeSelected === "option3" ? "option-selected" : ""}`} onClick={() => handleButtonClick('option3')}>
 										<p>
@@ -302,7 +302,7 @@ const Product = () => {
 											</div>
 											3+ Stuks
 										</p>
-										<span><b>15%</b> Korting</span>
+										<span><b>10%</b> Korting</span>
 									</div>
 								</div>
 								{product?.soldout ? 

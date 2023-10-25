@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { url } from "../slices/api";
 
-const PayButton = ({ cartItems }) => {
+const PayButton = ({ cartItems, insurance }) => {
   const user = useSelector((state) => state.auth);
 
   const handleCheckout = () => {
@@ -14,6 +14,7 @@ const PayButton = ({ cartItems }) => {
       data: {
         cartItems,
         userId: user._id,
+        insurance,
       }
     }).then((response) => {
         if (response.data.url) {
