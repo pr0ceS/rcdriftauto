@@ -172,7 +172,7 @@ const Home = () => {
 				<div className="banner-wrapper">
 					<h1 className="banner-title">RCDriftAuto™</h1>
 					<p className="banner-description">
-						🔥 €5 Korting op alles! 🚘 Koop 3 krijg extra 10% Korting! 🔥
+						🔥 Koop 3 = extra 10% Korting! 🔥
 					</p>
 					<Link to="/autos" className="a-button banner-button">Auto's Bekijken</Link>
 				</div>
