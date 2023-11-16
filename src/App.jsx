@@ -41,7 +41,6 @@ import Server from "./components/admin/Server";
 import MailList from "./components/admin/MailingList";
 import Contact from "./components/admin/Contact";
 import Invoices from "./components/admin/Invoices";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 // const initialOptions = {
 //   "client-id": "Ae4Yr0-ydoK23Ujy5BDUK-iznEzBN8SpgoxforBS15e-hA6cPFC8p8sWEmPXcrGZwMvSCHT5ydH0dvVW",
@@ -52,64 +51,55 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 function App() {
   const dispatch = useDispatch();
 
-	const initialOptions = {
-		"client-id": "AU1zM9clGWNkex9sDW_so4FbZo8Ipa1cImeLbY6A69vCTFjvjRo0NngM9kPjJyDEEWGIolmUl3ep-9X0",
-		currency: "EUR",
-		intent: "capture",
-		// deferLoading: false,
-	}
-
   useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
 
   return (
 		<div className="App">
-			<PayPalScriptProvider options={initialOptions}>
-				<Toaster position="bottom-left" toastOptions={{ duration: 5000, error: { duration: 20000 }, style: { background: "#333", color: "#fff"} }}/>
-				<BrowserRouter>
-					<ScrollToTop />
-					{/* {statement && <Statement />} */}
-					<NavBar />
-					<div className="content-container">
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/winkelwagen" element={<Cart />} />
-							<Route path="/betaald" element={<CheckoutSuccess />} />
-							<Route path="/registreren" element={<Register />} />
-							<Route path="/inloggen" element={<Login />} />
-							<Route path="/auto/:id" element={<Product />} />
-							<Route path="/autos" element={<ProductsPage />} />
-							<Route path="/bestelling/:id" element={<Order />} />
-							<Route path="/bestellingen" element={<UserOrders />} />
-							<Route path="/klantenservice" element={<Klantenservice />} />
-							<Route path="/faq" element={<FAQ />} />
-							{/* <Route path="/privacy-beleid" element={<Privacybeleid />} /> */}
-							<Route path="/retourbeleid" element={<Retourbeleid />} />
-							<Route path="/verzendbeleid" element={<Verzendbeleid />} />
-							<Route path="/algemenevoorwaarden" element={<Algemenevoorwaarden />} />
-							<Route path="/bedrijfsgegevens" element={<Impressum />} />
-							<Route path="/account/:id" element={<UserProfile />} />
-							<Route path="/admin" element={<Dashboard />}>
-								<Route path="summary" element={<Summary />} />
-								<Route path="products" element={<Products />}>
-									<Route index element={<ProductsList />} />
-									<Route path="create-product" element={<CreateProduct />} />
-								</Route>
-								<Route path="users" element={<Users />} />
-								<Route path="orders" element={<Orders />} />
-								<Route path="invoices" element={<Invoices/>} />
-								<Route path="reviews" element={<Reviews />} />
-								<Route path="mailing-list" element={<MailList />} />
-								<Route path="contact" element={<Contact />} />
-								<Route path="server" element={<Server />} />
+			<Toaster position="bottom-left" toastOptions={{ duration: 3000, error: { duration: 20000 }, style: { background: "#333", color: "#fff"} }}/>
+			<BrowserRouter>
+				<ScrollToTop />
+				{/* {statement && <Statement />} */}
+				<NavBar />
+				<div className="content-container">
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/winkelwagen" element={<Cart />} />
+						<Route path="/betaald" element={<CheckoutSuccess />} />
+						<Route path="/registreren" element={<Register />} />
+						<Route path="/inloggen" element={<Login />} />
+						<Route path="/auto/:id" element={<Product />} />
+						<Route path="/autos" element={<ProductsPage />} />
+						<Route path="/bestelling/:id" element={<Order />} />
+						<Route path="/bestellingen" element={<UserOrders />} />
+						<Route path="/klantenservice" element={<Klantenservice />} />
+						<Route path="/faq" element={<FAQ />} />
+						{/* <Route path="/privacy-beleid" element={<Privacybeleid />} /> */}
+						<Route path="/retourbeleid" element={<Retourbeleid />} />
+						<Route path="/verzendbeleid" element={<Verzendbeleid />} />
+						<Route path="/algemenevoorwaarden" element={<Algemenevoorwaarden />} />
+						<Route path="/bedrijfsgegevens" element={<Impressum />} />
+						<Route path="/account/:id" element={<UserProfile />} />
+						<Route path="/admin" element={<Dashboard />}>
+							<Route path="summary" element={<Summary />} />
+							<Route path="products" element={<Products />}>
+								<Route index element={<ProductsList />} />
+								<Route path="create-product" element={<CreateProduct />} />
 							</Route>
-							<Route path="*" element={<NotFound />} />
-						</Routes>
-					</div>
-					<Footer />
-				</BrowserRouter>
-			</PayPalScriptProvider>
+							<Route path="users" element={<Users />} />
+							<Route path="orders" element={<Orders />} />
+							<Route path="invoices" element={<Invoices/>} />
+							<Route path="reviews" element={<Reviews />} />
+							<Route path="mailing-list" element={<MailList />} />
+							<Route path="contact" element={<Contact />} />
+							<Route path="server" element={<Server />} />
+						</Route>
+						<Route path="*" element={<NotFound />} />
+					</Routes>
+				</div>
+				<Footer />
+			</BrowserRouter>
     </div>
   );
 }

@@ -23,7 +23,6 @@ const CheckoutSuccess = () => {
 				<h2>Bedankt voor uw Bestelling 🙂</h2>
 				<p>Als u geen account hebt geregistreerd/ingelogd, ontvangt u updates over uw bestelling per e-mail.</p>
 				<div>
-					<Link to="/bestellingen">Bestelling-status</Link>
 					<Link to="/klantenservice">Klantenservice</Link>
 				</div>
 			</div>

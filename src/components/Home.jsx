@@ -1,14 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import bannerOne from "./assets/Banner1.png";
+import bannergif from "./assets/bannergif.gif";
 import { Link } from "react-router-dom";
 import { url } from "../slices/api";
 import { addToCart, getTotals } from "../slices/cartSlice";
-import FadeIn from "react-fade-in";
-import slugify from "react-slugify";
 import { toast } from "react-hot-toast";
-import gif2 from "./assets/gif2.gif"
 import Satisfied from "./assets/Satisfied.webp";
 import Returns from "./assets/Returns.webp";
 import Service from "./assets/Service.webp";
@@ -18,16 +16,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Rating } from "@mui/material";
-// import { useGetAllProductsQuery } from "../slices/productsApi";
 
 const Home = () => {
   const { items: data, status } = useSelector((state) => state.products);
   const cart = useSelector((state) => state.cart);
 	const [popularProducts, setPopularProducts] = useState([]);
-	const [newProducts, setNewProducts] = useState([]);
-	const [accessoires, setAccessoires] = useState([]);
 	const dispatch = useDispatch();
-  const navigate = useNavigate();	
 	const element = useRef(null);
 
 	useEffect(() => {
@@ -159,9 +153,14 @@ const Home = () => {
 				<p className="closetext" onClick={() => closePopup()}>Nein danke, ich zahle lieber den vollen Preis</p>
 			</div> */}
 			<div className="banner">
-			<video autoPlay playsInline muted loop>
-				<source src="https://res.cloudinary.com/dwkzjfa1m/video/upload/v1697713605/RCDriftAuto_Website_Video_2_bbixpu.mp4" type="video/mp4" />
-			</video>
+				<img
+					src={bannerOne}
+					width="1920"
+					height="1080"
+					decoding="async"
+					loading="lazy"
+					alt="Banner Image"
+				/>
 				{/* <div className="banner-wrapper">
 					<Swiper autoplay={{delay: 5000, disableOnInteraction: false}} navigation={true} modules={[Autoplay, Navigation]} className="mySwiper">
 						<SwiperSlide className="carousel carousel2"><Link className="a-button" to="/produkt/ergotron-lx-arm-monitor-durchtischbefestigung-(45-241-026)">Jetzt entdecken</Link></SwiperSlide>
@@ -183,9 +182,14 @@ const Home = () => {
 					<p>Koop vandaag nog een RCDriftAuto™. Onze auto's zijn van uiterste kwaliteit en garanderen een langdurige speelplezier.<br/> <br/> Wij bieden een 14 dagen niet goed, geld terug garantie aan. Ook bieden wij gratis verzendkosten aan voor u. <br/> <br/>Wij leveren bij elk aankoop 2 sets banden. Eentje zijn geschikt voor Driften en de andere zijn voor Racen.<br/> <br/> Onze Klantenservice is altijd snel, gratis en behulpzaam. Bij defecten zorgen wij voor een creditering of een gloednieuwe.</p>
 					<Link className="a-button" to="/autos">Auto's Bekijken</Link>
 				</div>
-				<video autoPlay playsInline muted loop>
-					<source src="https://res.cloudinary.com/dwkzjfa1m/video/upload/v1697713604/RCDriftAuto_Website_Video_dyvx5t.mp4" type="video/mp4" />
-			</video>
+				<img
+					src={bannergif}
+					width="600"
+					height="667"
+					decoding="async"
+					loading="lazy"
+					alt="Banner Gif"
+				/>
 			</section>
 			<div className="home-container">
 				{status === "success" ? (

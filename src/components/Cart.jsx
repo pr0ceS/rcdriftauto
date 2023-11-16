@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { destroySDKScript, getScriptID, PayPalScriptProvider,  } from "@paypal/react-paypal-js";
-// import CheckoutPaypal from "./CheckoutPaypal";
-import Countdown from "./Countdown";
 
 import {
   addToCart,
@@ -20,7 +17,6 @@ import PayButton from "./PayButton";
 import FadeIn from "react-fade-in/lib/FadeIn";
 import { Breadcrumbs, Rating } from "@mui/material";
 import reviewsData from "./json/reviews.json";
-// import CheckoutPaypalV2 from "./CheckoutPaypalV2";
 
 const Cart = () => {
   const indicesToExtract = [3, 4, 6];
