@@ -184,8 +184,6 @@ const Home = () => {
 				</div>
 				<img
 					src={bannergif}
-					width="600"
-					height="667"
 					decoding="async"
 					loading="lazy"
 					alt="Banner Gif"
