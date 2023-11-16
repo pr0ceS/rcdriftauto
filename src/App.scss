@@ -734,9 +734,6 @@ button, .a-button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	video {
-		width: 600px;
-	}
 	div {
 		margin-right: 60px;
 		max-width: 600px;
@@ -792,7 +789,7 @@ button, .a-button {
 		div {
 			margin: 0 20px;
 		}
-		video {
+		img {
 			width: 100% !important;
 			margin-bottom: 40px;
 		}
