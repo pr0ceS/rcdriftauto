@@ -171,7 +171,7 @@ const Home = () => {
 				<div className="banner-wrapper">
 					<h1 className="banner-title">RCDriftAuto™</h1>
 					<p className="banner-description">
-						🔥 50% Korting op Alles!
+						🎅🎄 50% Korting op Alles!
 					</p>
 					<Link to="/autos" className="a-button banner-button">Auto's Bekijken</Link>
 				</div>
